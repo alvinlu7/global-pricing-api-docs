@@ -20,7 +20,7 @@ This endpoint:
 **URL**
 
 ```text
-POST https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate
+POST https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/estimate
 ```
 
 **Body**
@@ -39,15 +39,15 @@ POST https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate
 
 ### Fields
 
-| Field              | Type    | Required | Description |
-|--------------------|---------|----------|-------------|
-| `basePrice`        | number  | yes      | Price to be localized, in `baseCurrency`. |
-| `baseCurrency`     | string  | yes      | ISO 4217 currency code (e.g. `USD`, `EUR`). |
-| `originCountry`    | string  | yes      | ISO 3166-1 alpha-2 country code where the price originates. |
-| `destinationCountry` | string | yes     | ISO 3166-1 alpha-2 country code of the buyer / localization target. |
-| `productCategory`  | string  | yes      | Product category (e.g. `digital_service`, `ebook`). |
-| `customerType`     | string  | no       | `"consumer"` or `"business"`. Currently treated mostly as metadata. |
-| `pricingStrategy`  | string  | no       | `"none"`, `"charm_99"`, or `"round_05"`. Defaults to `"none"`. |
+| Field                | Type   | Required | Description                                                         |
+| -------------------- | ------ | -------- | ------------------------------------------------------------------- |
+| `basePrice`          | number | yes      | Price to be localized, in `baseCurrency`.                           |
+| `baseCurrency`       | string | yes      | ISO 4217 currency code (e.g. `USD`, `EUR`).                         |
+| `originCountry`      | string | yes      | ISO 3166-1 alpha-2 country code where the price originates.         |
+| `destinationCountry` | string | yes      | ISO 3166-1 alpha-2 country code of the buyer / localization target. |
+| `productCategory`    | string | yes      | Product category (e.g. `digital_service`, `ebook`).                 |
+| `customerType`       | string | no       | `"consumer"` or `"business"`. Currently treated mostly as metadata. |
+| `pricingStrategy`    | string | no       | `"none"`, `"charm_99"`, or `"round_05"`. Defaults to `"none"`.      |
 
 ---
 
@@ -95,10 +95,10 @@ Example:
 
 ### Key Fields
 
-- `displayPrice` – the user-facing localized price (after psychological pricing).  
-- `currency` – destination currency.  
-- `taxBreakdown` – an array of tax lines applied.  
-- `appliedRules` – which tax rules were used.  
+- `displayPrice` – the user-facing localized price (after psychological pricing).
+- `currency` – destination currency.
+- `taxBreakdown` – an array of tax lines applied.
+- `appliedRules` – which tax rules were used.
 - `meta` – operational and accuracy metadata.
 
 ---
@@ -107,8 +107,8 @@ Example:
 
 This endpoint may return:
 
-- `400` with `INVALID_REQUEST` style errors (missing or invalid fields).  
-- `400` with `UNSUPPORTED_COUNTRY` or `UNSUPPORTED_CATEGORY`.  
+- `400` with `INVALID_REQUEST` style errors (missing or invalid fields).
+- `400` with `UNSUPPORTED_COUNTRY` or `UNSUPPORTED_CATEGORY`.
 - `500` with `FX_LOOKUP_FAILED` if the FX provider is temporarily unavailable.
 
 See [Errors & Rate Limits](../guides/errors.mdx) for full details.

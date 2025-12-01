@@ -6,9 +6,9 @@ title: Global Pricing & Tax Estimator API
 
 The **Global Pricing & Tax Estimator API** localizes prices across borders by combining:
 
-- FX conversion to destination currency  
-- Country-level VAT / GST / Sales Tax heuristics  
-- Category-aware rules (digital vs physical, ebooks, groceries, etc.)  
+- FX conversion to destination currency
+- Country-level VAT / GST / Sales Tax heuristics
+- Category-aware rules (digital vs physical, ebooks, groceries, etc.)
 - Optional psychological pricing strategies (.99, rounding to 0.05)
 
 It is optimized for:
@@ -41,22 +41,22 @@ It is optimized for:
 
 1. You send:
 
-   - `basePrice` + `baseCurrency`  
-   - `originCountry` + `destinationCountry`  
-   - `productCategory`  
-   - Optional `pricingStrategy`  
+   - `basePrice` + `baseCurrency`
+   - `originCountry` + `destinationCountry`
+   - `productCategory`
+   - Optional `pricingStrategy`
 
 2. The engine:
 
-   - Converts to destination currency using cached FX rates.  
-   - Looks up a country tax profile and category rules.  
-   - Computes an estimated tax and gross price.  
+   - Converts to destination currency using cached FX rates.
+   - Looks up a country tax profile and category rules.
+   - Computes an estimated tax and gross price.
    - Applies a psychological pricing strategy (if requested).
 
 3. You get:
 
-   - A localized `displayPrice` in the destination currency.  
-   - A breakdown of what was applied.  
+   - A localized `displayPrice` in the destination currency.
+   - A breakdown of what was applied.
    - Metadata describing how confident the estimate is.
 
 ---
@@ -64,7 +64,7 @@ It is optimized for:
 ## Example – One Line Estimate
 
 ```bash
-curl -X POST "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate" \
+curl -X POST "https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/estimate" \
   -H "X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -105,7 +105,7 @@ Response (simplified):
 
 ## Where to Go Next
 
-- [Getting Started](./getting-started.mdx) – first call in 5 minutes  
-- [Authentication](./auth.mdx) – RapidAPI headers & direct usage  
-- [Price Estimate Endpoint](./endpoints/price-estimate.mdx) – core single-item endpoint  
-- [Batch Estimate](./endpoints/price-batch-estimate.mdx) – carts and catalogs  
+- [Getting Started](./getting-started.mdx) – first call in 5 minutes
+- [Authentication](./auth.mdx) – RapidAPI headers & direct usage
+- [Price Estimate Endpoint](./endpoints/price-estimate.mdx) – core single-item endpoint
+- [Batch Estimate](./endpoints/price-batch-estimate.mdx) – carts and catalogs

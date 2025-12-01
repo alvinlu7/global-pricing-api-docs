@@ -1,9 +1,9 @@
 {
-  "$schema": "https://docs.page/schema.json",
+  "schema": "https://docs.page/schema.json",
   "name": "Global Pricing & Tax Estimator API",
   "description": "Estimate localized prices with FX, VAT/GST/Sales Tax heuristics, and psychological pricing.",
   "social": {
-    "github": "your-username/global-pricing-api-docs"
+    "github": "alvinlu7/global-pricing-api-docs"
   },
   "sidebar": [
     {

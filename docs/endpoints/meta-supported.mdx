@@ -11,7 +11,7 @@ List supported countries, product categories, and the current tax rules version.
 ## Request
 
 ```text
-GET https://<YOUR_RAPIDAPI_HOST>/v1/meta/supported
+GET https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/meta/supported
 ```
 
 ## Example Response
@@ -19,8 +19,26 @@ GET https://<YOUR_RAPIDAPI_HOST>/v1/meta/supported
 ```json
 {
   "countries": [
-    "US","GB","DE","FR","ES","IT","NL","SE","PL",
-    "CA","AU","JP","KR","SG","MX","BR","IN","CN","BE","CH"
+    "US",
+    "GB",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "NL",
+    "SE",
+    "PL",
+    "CA",
+    "AU",
+    "JP",
+    "KR",
+    "SG",
+    "MX",
+    "BR",
+    "IN",
+    "CN",
+    "BE",
+    "CH"
   ],
   "productCategories": [
     "digital_service",
@@ -36,6 +54,6 @@ GET https://<YOUR_RAPIDAPI_HOST>/v1/meta/supported
 
 Use this to:
 
-- Populate dropdowns dynamically.  
-- Confirm whether a target market is covered.  
+- Populate dropdowns dynamically.
+- Confirm whether a target market is covered.
 - Log which version of rules your system is using.

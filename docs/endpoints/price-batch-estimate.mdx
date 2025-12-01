@@ -19,7 +19,7 @@ Useful for:
 **URL**
 
 ```text
-POST https://<YOUR_RAPIDAPI_HOST>/v1/price/batch-estimate
+POST https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/batch-estimate
 ```
 
 **Body**
@@ -50,9 +50,9 @@ POST https://<YOUR_RAPIDAPI_HOST>/v1/price/batch-estimate
 
 ### Fields
 
-- `destinationCountry` – required for the batch as a whole.  
-- `customerType` – optional; `"consumer"` or `"business"`.  
-- `pricingStrategy` – optional; applied to each item if present.  
+- `destinationCountry` – required for the batch as a whole.
+- `customerType` – optional; `"consumer"` or `"business"`.
+- `pricingStrategy` – optional; applied to each item if present.
 - `items[]` – array of objects, each requiring:
   - `id`
   - `basePrice`

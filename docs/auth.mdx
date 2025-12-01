@@ -14,15 +14,15 @@ All requests must include:
 
 ```text
 X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>
-X-RapidAPI-Host: <YOUR_RAPIDAPI_HOST>
+X-RapidAPI-Host: global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com
 ```
 
 Example:
 
 ```bash
-curl -X POST "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate" \
+curl -X POST "https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/estimate" \
   -H "X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>" \
-  -H "X-RapidAPI-Host: <YOUR_RAPIDAPI_HOST>" \
+  -H "X-RapidAPI-Host: global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com" \
   -H "Content-Type: application/json" \
   -d '{ ... }'
 ```
@@ -43,6 +43,6 @@ This is **optional** and used only for private/internal integrations. For most u
 
 ## Security Guidelines
 
-- Never hard-code your RapidAPI key in frontend code.  
-- Store keys in environment variables or secret managers.  
-- Rotate keys periodically if you suspect exposure.  
+- Never hard-code your RapidAPI key in frontend code.
+- Store keys in environment variables or secret managers.
+- Rotate keys periodically if you suspect exposure.

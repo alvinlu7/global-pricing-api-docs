@@ -10,7 +10,7 @@ This guide gets you to your first successful request with the **Global Pricing &
 
 ## 1. Subscribe on RapidAPI
 
-1. Go to the API's page on RapidAPI.
+1. Go to [the API's page on RapidAPI](https://rapidapi.com/alvinlu7-uyXHOn0PMvN/api/global-pricing-tax-estimator-api-fx-vat-gst-sales-tax)
 2. Subscribe to the **Free** or **Basic** plan.
 3. RapidAPI will give you:
    - `X-RapidAPI-Key`
@@ -23,7 +23,7 @@ You will use those in every request.
 ## 2. First Request with cURL
 
 ```bash
-curl -X POST "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate" \
+curl -X POST "https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/estimate" \
   -H "X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -47,12 +47,14 @@ If everything is wired correctly, you will get a JSON breakdown with `displayPri
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://<YOUR_RAPIDAPI_HOST>",
+  baseURL:
+    "https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com",
   headers: {
     "X-RapidAPI-Key": process.env.RAPIDAPI_KEY!,
-    "X-RapidAPI-Host": "<YOUR_RAPIDAPI_HOST>",
-    "Content-Type": "application/json"
-  }
+    "X-RapidAPI-Host":
+      "global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com",
+    "Content-Type": "application/json",
+  },
 });
 
 async function run() {
@@ -63,7 +65,7 @@ async function run() {
     destinationCountry: "DE",
     productCategory: "digital_service",
     customerType: "consumer",
-    pricingStrategy: "charm_99"
+    pricingStrategy: "charm_99",
   });
 
   console.log(data.displayPrice, data.currency);
@@ -80,11 +82,11 @@ run().catch(console.error);
 import requests
 import os
 
-url = "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate"
+url = "https://global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com/v1/price/estimate"
 
 headers = {
     "X-RapidAPI-Key": os.environ["RAPIDAPI_KEY"],
-    "X-RapidAPI-Host": "<YOUR_RAPIDAPI_HOST>",
+    "X-RapidAPI-Host": "global-pricing-tax-estimator-api-fx-vat-gst-sales-tax.p.rapidapi.com",
     "Content-Type": "application/json",
 }
 
@@ -114,5 +116,5 @@ To price multiple items (e.g. a cart), use:
 
 ## 6. Next Steps
 
-- Learn how auth works in more detail: [Authentication](./auth.mdx)  
-- See all supported countries and categories: [GET /v1/meta/supported](./endpoints/meta-supported.mdx)  
+- Learn how auth works in more detail: [Authentication](./auth.mdx)
+- See all supported countries and categories: [GET /v1/meta/supported](./endpoints/meta-supported.mdx)
