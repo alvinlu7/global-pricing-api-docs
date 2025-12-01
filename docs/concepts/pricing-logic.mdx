@@ -1,0 +1,45 @@
+---
+title: Pricing Logic
+---
+
+# Pricing Logic
+
+At a high level, the engine follows this sequence:
+
+1. **Parse input** – validate request, countries, categories.
+2. **Convert FX** – `basePrice` → `convertedNetPrice` using FX.
+3. **Apply tax profile** – find country tax profile and rate(s).
+4. **Compute tax** – `taxAmount = convertedNetPrice * rate`.
+5. **Compute gross** – `grossPrice = convertedNetPrice + taxAmount`.
+6. **Apply pricing strategy** – compute final `displayPrice`.
+7. **Assemble metadata** – confidence, rules, FX details, disclaimers.
+
+---
+
+## Pricing Strategies
+
+- `none` – `displayPrice = grossPrice`.  
+- `charm_99` – round to the nearest reasonable `.99`.  
+- `round_05` – round to nearest multiple of 0.05 (e.g. 9.95, 10.00, 10.05).
+
+These are intentionally simple and deterministic.
+
+---
+
+## Confidence
+
+The `meta.confidence` field gives a coarse heuristic:
+
+- High when:
+  - Destination country has `supportLevel: "full"`.  
+  - A clear category mapping exists.  
+  - FX source is fresh.  
+- Lower when:
+  - Country is `"beta"`.  
+  - Category mappings are coarse.  
+  - FX snapshot is older.  
+
+Use this to decide whether to:
+
+- Show a subtle “≈” symbol in your UI.  
+- Request manual review for certain B2B flows.  

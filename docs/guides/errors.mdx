@@ -1,0 +1,50 @@
+---
+title: Errors & Rate Limits
+---
+
+# Errors & Rate Limits
+
+All errors are returned as JSON with a stable shape:
+
+```json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "destinationCountry is required",
+    "details": {
+      "field": "destinationCountry"
+    }
+  }
+}
+```
+
+---
+
+## Common Error Codes
+
+| Code                 | HTTP | Description |
+|----------------------|------|-------------|
+| `INVALID_REQUEST`    | 400  | Request body is malformed or missing fields. |
+| `INVALID_COUNTRY`    | 400  | `originCountry` or `destinationCountry` is not a valid supported ISO code. |
+| `INVALID_CATEGORY`   | 400  | `productCategory` is unknown. |
+| `INVALID_CURRENCY`   | 400  | `baseCurrency` is unsupported. |
+| `UNSUPPORTED_COUNTRY`| 400  | Destination country not yet supported by tax profiles. |
+| `FX_LOOKUP_FAILED`   | 500  | FX provider unavailable or returned a malformed payload. |
+| `INTERNAL_ERROR`     | 500  | Unexpected failure. |
+| `RATE_LIMITED`       | 429  | You exceeded your RapidAPI quota. |
+
+---
+
+## Rate Limiting
+
+Rate limits are enforced by:
+
+1. **RapidAPI plan quotas**, based on your subscription.  
+2. Optional **internal safety limits** per key.
+
+If you receive `RATE_LIMITED`:
+
+- Implement exponential backoff.  
+- Cache successful responses.  
+- Consider upgrading your plan for higher throughput.
+

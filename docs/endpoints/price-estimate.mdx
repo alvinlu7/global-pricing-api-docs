@@ -1,0 +1,114 @@
+---
+title: POST /v1/price/estimate
+---
+
+# POST /v1/price/estimate
+
+Estimate a localized price for a **single item**.
+
+This endpoint:
+
+- Converts `basePrice` from `baseCurrency` to the destination country currency
+- Applies country tax rules for the given `productCategory`
+- Computes `taxAmount`, `grossPrice`, and a user-facing `displayPrice`
+- Returns metadata describing the confidence, tax profile, and FX rate
+
+---
+
+## Request
+
+**URL**
+
+```text
+POST https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate
+```
+
+**Body**
+
+```json
+{
+  "basePrice": 20.0,
+  "baseCurrency": "USD",
+  "originCountry": "US",
+  "destinationCountry": "DE",
+  "productCategory": "digital_service",
+  "customerType": "consumer",
+  "pricingStrategy": "charm_99"
+}
+```
+
+### Fields
+
+| Field              | Type    | Required | Description |
+|--------------------|---------|----------|-------------|
+| `basePrice`        | number  | yes      | Price to be localized, in `baseCurrency`. |
+| `baseCurrency`     | string  | yes      | ISO 4217 currency code (e.g. `USD`, `EUR`). |
+| `originCountry`    | string  | yes      | ISO 3166-1 alpha-2 country code where the price originates. |
+| `destinationCountry` | string | yes     | ISO 3166-1 alpha-2 country code of the buyer / localization target. |
+| `productCategory`  | string  | yes      | Product category (e.g. `digital_service`, `ebook`). |
+| `customerType`     | string  | no       | `"consumer"` or `"business"`. Currently treated mostly as metadata. |
+| `pricingStrategy`  | string  | no       | `"none"`, `"charm_99"`, or `"round_05"`. Defaults to `"none"`. |
+
+---
+
+## Response
+
+Example:
+
+```json
+{
+  "netPrice": 20,
+  "convertedNetPrice": 18.47,
+  "taxAmount": 3.51,
+  "grossPrice": 21.98,
+  "displayPrice": 21.99,
+  "currency": "EUR",
+  "taxBreakdown": [
+    {
+      "type": "VAT",
+      "jurisdiction": "DE",
+      "rate": 0.19,
+      "amount": 3.51
+    }
+  ],
+  "appliedRules": [
+    {
+      "id": "COUNTRY_DE_VAT",
+      "source": "country_tax_profile",
+      "ruleVersion": "2025-11-28"
+    }
+  ],
+  "meta": {
+    "isEstimate": true,
+    "supportLevel": "full",
+    "confidence": 0.95,
+    "rulesVersion": "2025-11-28",
+    "taxType": "VAT",
+    "taxLastVerified": "2025-11-28",
+    "fxRate": 0.9235,
+    "fxSource": "open.er-api.com",
+    "fxAsOf": "2025-12-01T00:02:31.000Z",
+    "disclaimer": "This API provides price estimates for informational purposes only and does not constitute tax, legal, or financial advice."
+  }
+}
+```
+
+### Key Fields
+
+- `displayPrice` – the user-facing localized price (after psychological pricing).  
+- `currency` – destination currency.  
+- `taxBreakdown` – an array of tax lines applied.  
+- `appliedRules` – which tax rules were used.  
+- `meta` – operational and accuracy metadata.
+
+---
+
+## Error Responses
+
+This endpoint may return:
+
+- `400` with `INVALID_REQUEST` style errors (missing or invalid fields).  
+- `400` with `UNSUPPORTED_COUNTRY` or `UNSUPPORTED_CATEGORY`.  
+- `500` with `FX_LOOKUP_FAILED` if the FX provider is temporarily unavailable.
+
+See [Errors & Rate Limits](../guides/errors.mdx) for full details.

@@ -1,0 +1,70 @@
+---
+title: Tax Profiles
+---
+
+# Tax Profiles
+
+Tax profiles model **country-level** tax behavior for price estimation.
+
+Each profile includes:
+
+- `country` – ISO 3166-1 alpha-2 country code  
+- `name` – human-readable name  
+- `currency` – primary currency  
+- `taxType` – e.g. `VAT`, `GST`, `SalesTax`  
+- `standardRate` – standard consumer rate  
+- `reducedRates` – category-specific rates (e.g. `food_grocery`, `ebook`)  
+- `supportLevel` – `full`, `simplified`, or `beta`  
+- `metadata` – source URL, last verification date, notes  
+
+---
+
+## Example: Germany (DE)
+
+```json
+{
+  "country": "DE",
+  "name": "Germany",
+  "currency": "EUR",
+  "taxType": "VAT",
+  "supportLevel": "full",
+  "standardRate": 0.19,
+  "reducedRates": {
+    "food_grocery": 0.07,
+    "ebook": 0.07
+  },
+  "metadata": {
+    "lastVerified": "2025-11-28",
+    "notes": [
+      "Standard VAT rate 19%; reduced 7% for many foods and e-publications.",
+      "Simplified for estimator; not a legal tax engine."
+    ]
+  }
+}
+```
+
+---
+
+## Support Levels
+
+- `full` – regime is relatively simple; mapping is confident.  
+- `simplified` – known multiple rates; estimator uses one heuristic per category.  
+- `beta` – complex jurisdiction (e.g. Brazil, India) with blended approximations.  
+
+Your app can use this to decide how prominently to surface “approximate” labels.
+
+---
+
+## Accuracy Philosophy
+
+The goal is:
+
+> “Reasonable localized prices for UX and experimentation, not legal tax computation.”
+
+If you need filing-grade determinism, use a tax provider built for that purpose.
+
+This API focuses on:
+
+- Being **predictable**, not perfectly exact.  
+- Keeping **rules versioned and transparent**.  
+- Making **tradeoffs explicit** via `supportLevel` and `confidence`.

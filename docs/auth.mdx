@@ -1,0 +1,48 @@
+---
+title: Authentication
+---
+
+# Authentication
+
+Authentication is handled by **RapidAPI** via headers.
+
+---
+
+## RapidAPI Headers
+
+All requests must include:
+
+```text
+X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>
+X-RapidAPI-Host: <YOUR_RAPIDAPI_HOST>
+```
+
+Example:
+
+```bash
+curl -X POST "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate" \
+  -H "X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>" \
+  -H "X-RapidAPI-Host: <YOUR_RAPIDAPI_HOST>" \
+  -H "Content-Type: application/json" \
+  -d '{ ... }'
+```
+
+---
+
+## Direct (Non-RapidAPI) Usage
+
+If you are using a **direct deployment** (e.g. Railway) outside of RapidAPI, the service may also accept a private key in a header such as:
+
+```text
+x-api-key: <YOUR_DIRECT_SERVICE_KEY>
+```
+
+This is **optional** and used only for private/internal integrations. For most users, RapidAPI headers are sufficient.
+
+---
+
+## Security Guidelines
+
+- Never hard-code your RapidAPI key in frontend code.  
+- Store keys in environment variables or secret managers.  
+- Rotate keys periodically if you suspect exposure.  

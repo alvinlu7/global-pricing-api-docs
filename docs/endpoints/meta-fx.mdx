@@ -1,0 +1,35 @@
+---
+title: GET /v1/meta/fx
+---
+
+# GET /v1/meta/fx
+
+Expose FX metadata:
+
+- Source  
+- Last update timestamp  
+- Cache TTL  
+
+---
+
+## Request
+
+```text
+GET https://<YOUR_RAPIDAPI_HOST>/v1/meta/fx
+```
+
+## Example Response
+
+```json
+{
+  "source": "open.er-api.com",
+  "asOf": "2025-12-01T00:02:31.000Z",
+  "baseCurrency": "USD",
+  "cacheTtlMinutes": 1440
+}
+```
+
+Use this endpoint to:
+
+- Show “FX updated X minutes ago” in your admin UI.  
+- Decide how often to refresh cached prices in your own systems.  

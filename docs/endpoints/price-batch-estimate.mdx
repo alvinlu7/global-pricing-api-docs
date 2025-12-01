@@ -1,0 +1,113 @@
+---
+title: POST /v1/price/batch-estimate
+---
+
+# POST /v1/price/batch-estimate
+
+Estimate localized prices for **multiple items** in a single request.
+
+Useful for:
+
+- Cart pricing
+- Catalog ingestion
+- Bulk updates
+
+---
+
+## Request
+
+**URL**
+
+```text
+POST https://<YOUR_RAPIDAPI_HOST>/v1/price/batch-estimate
+```
+
+**Body**
+
+```json
+{
+  "destinationCountry": "DE",
+  "customerType": "consumer",
+  "pricingStrategy": "charm_99",
+  "items": [
+    {
+      "id": "SKU1",
+      "basePrice": 10,
+      "baseCurrency": "USD",
+      "originCountry": "US",
+      "productCategory": "ebook"
+    },
+    {
+      "id": "SKU2",
+      "basePrice": 50,
+      "baseCurrency": "USD",
+      "originCountry": "US",
+      "productCategory": "physical_goods_general"
+    }
+  ]
+}
+```
+
+### Fields
+
+- `destinationCountry` – required for the batch as a whole.  
+- `customerType` – optional; `"consumer"` or `"business"`.  
+- `pricingStrategy` – optional; applied to each item if present.  
+- `items[]` – array of objects, each requiring:
+  - `id`
+  - `basePrice`
+  - `baseCurrency`
+  - `originCountry`
+  - `productCategory`
+
+---
+
+## Response
+
+Example (truncated):
+
+```json
+{
+  "destinationCountry": "DE",
+  "currency": "EUR",
+  "items": [
+    {
+      "id": "SKU1",
+      "netPrice": 10,
+      "convertedNetPrice": 8.63,
+      "taxAmount": 0.60,
+      "grossPrice": 9.23,
+      "displayPrice": 9.99,
+      "currency": "EUR",
+      "taxBreakdown": [ ... ],
+      "appliedRules": [ ... ],
+      "meta": { ... }
+    },
+    {
+      "id": "SKU2",
+      "netPrice": 50,
+      "convertedNetPrice": 43.13,
+      "taxAmount": 8.19,
+      "grossPrice": 51.32,
+      "displayPrice": 51.99,
+      "currency": "EUR",
+      "taxBreakdown": [ ... ],
+      "appliedRules": [ ... ],
+      "meta": { ... }
+    }
+  ],
+  "totals": {
+    "netPrice": 60,
+    "convertedNetPrice": 51.76,
+    "taxAmount": 8.79,
+    "grossPrice": 60.55,
+    "displayPrice": 61.98
+  },
+  "meta": {
+    "itemCount": 2,
+    "destinationCurrency": "EUR"
+  }
+}
+```
+
+Use `items[]` for line-level UI and `totals` for cart summaries.

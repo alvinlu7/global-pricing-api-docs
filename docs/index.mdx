@@ -1,0 +1,111 @@
+---
+title: Global Pricing & Tax Estimator API
+---
+
+# Global Pricing & Tax Estimator API
+
+The **Global Pricing & Tax Estimator API** localizes prices across borders by combining:
+
+- FX conversion to destination currency  
+- Country-level VAT / GST / Sales Tax heuristics  
+- Category-aware rules (digital vs physical, ebooks, groceries, etc.)  
+- Optional psychological pricing strategies (.99, rounding to 0.05)
+
+It is optimized for:
+
+- Product teams that need **fast, deterministic localized prices**
+- Developers building **global checkout flows**
+- SaaS and marketplaces that want **“good enough” tax + FX** without a full tax engine
+
+> ⚠️ This API is for **estimation and UX purposes only**.  
+> It is not a tax filing or legal-compliance engine.
+
+---
+
+## What This API Does Well
+
+- Gives you a **reasonable localized price** for a given country and product category.
+- Handles **FX conversion + tax estimation** in a single call.
+- Returns a **complete price breakdown**:
+  - `netPrice`
+  - `convertedNetPrice`
+  - `taxAmount`
+  - `grossPrice`
+  - `displayPrice`
+  - `taxBreakdown[]`
+  - `meta` (confidence, FX source, rules version, etc.)
+
+---
+
+## High-Level Flow
+
+1. You send:
+
+   - `basePrice` + `baseCurrency`  
+   - `originCountry` + `destinationCountry`  
+   - `productCategory`  
+   - Optional `pricingStrategy`  
+
+2. The engine:
+
+   - Converts to destination currency using cached FX rates.  
+   - Looks up a country tax profile and category rules.  
+   - Computes an estimated tax and gross price.  
+   - Applies a psychological pricing strategy (if requested).
+
+3. You get:
+
+   - A localized `displayPrice` in the destination currency.  
+   - A breakdown of what was applied.  
+   - Metadata describing how confident the estimate is.
+
+---
+
+## Example – One Line Estimate
+
+```bash
+curl -X POST "https://<YOUR_RAPIDAPI_HOST>/v1/price/estimate" \
+  -H "X-RapidAPI-Key: <YOUR_RAPIDAPI_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "basePrice": 20,
+    "baseCurrency": "USD",
+    "originCountry": "US",
+    "destinationCountry": "DE",
+    "productCategory": "digital_service",
+    "customerType": "consumer",
+    "pricingStrategy": "charm_99"
+  }'
+```
+
+Response (simplified):
+
+```json
+{
+  "netPrice": 20,
+  "convertedNetPrice": 18.47,
+  "taxAmount": 3.51,
+  "grossPrice": 21.98,
+  "displayPrice": 21.99,
+  "currency": "EUR",
+  "taxBreakdown": [
+    { "type": "VAT", "jurisdiction": "DE", "rate": 0.19, "amount": 3.51 }
+  ],
+  "meta": {
+    "isEstimate": true,
+    "supportLevel": "full",
+    "confidence": 0.95,
+    "fxRate": 0.9235,
+    "rulesVersion": "2025-11-28"
+  }
+}
+```
+
+---
+
+## Where to Go Next
+
+- [Getting Started](./getting-started.mdx) – first call in 5 minutes  
+- [Authentication](./auth.mdx) – RapidAPI headers & direct usage  
+- [Price Estimate Endpoint](./endpoints/price-estimate.mdx) – core single-item endpoint  
+- [Batch Estimate](./endpoints/price-batch-estimate.mdx) – carts and catalogs  

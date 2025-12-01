@@ -1,0 +1,41 @@
+---
+title: GET /v1/meta/supported
+---
+
+# GET /v1/meta/supported
+
+List supported countries, product categories, and the current tax rules version.
+
+---
+
+## Request
+
+```text
+GET https://<YOUR_RAPIDAPI_HOST>/v1/meta/supported
+```
+
+## Example Response
+
+```json
+{
+  "countries": [
+    "US","GB","DE","FR","ES","IT","NL","SE","PL",
+    "CA","AU","JP","KR","SG","MX","BR","IN","CN","BE","CH"
+  ],
+  "productCategories": [
+    "digital_service",
+    "software_subscription",
+    "ebook",
+    "physical_goods_general",
+    "clothing",
+    "food_grocery"
+  ],
+  "rulesVersion": "2025-11-28"
+}
+```
+
+Use this to:
+
+- Populate dropdowns dynamically.  
+- Confirm whether a target market is covered.  
+- Log which version of rules your system is using.

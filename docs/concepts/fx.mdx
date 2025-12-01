@@ -1,0 +1,40 @@
+---
+title: FX System
+---
+
+# FX System
+
+The FX subsystem provides repeatable, stable currency conversion for pricing.
+
+It uses:
+
+- A public FX source (e.g. `open.er-api.com`)  
+- A configured base currency (often `USD`)  
+- Caching (e.g. 24 hours) for stability and lower volatility  
+
+---
+
+## Core Flow
+
+1. Load or fetch latest FX rates (base → quote).
+2. Cache them in memory for a period (e.g. 1440 minutes).
+3. For each request:
+   - Look up `baseCurrency` → `destinationCurrency` rate.
+   - Compute `convertedNetPrice = basePrice * fxRate`.
+
+If no FX rate is available, the API will:
+
+- Return `FX_LOOKUP_FAILED`, or  
+- Fall back gracefully (depending on configuration).
+
+---
+
+## Metadata
+
+FX metadata is visible via [GET /v1/meta/fx](../endpoints/meta-fx.mdx), which includes:
+
+- `source` – provider used  
+- `asOf` – timestamp of latest FX snapshot  
+- `cacheTtlMinutes` – configured TTL  
+
+This lets you expose “Last FX update” to your operations dashboard.

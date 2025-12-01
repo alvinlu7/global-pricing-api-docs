@@ -1,0 +1,50 @@
+---
+title: FAQ
+---
+
+# FAQ
+
+### Is this a tax engine?
+
+No. It is an **estimation engine** designed for UX, experimentation, and high-level pricing logic.  
+It is **not** suitable for tax filing, legal compliance, or remittance processes.
+
+---
+
+### How accurate are the tax rates?
+
+For `supportLevel: "full"` countries, rates are aligned with public VAT/GST/Sales Tax references and reviewed periodically.  
+For `simplified` and `beta` countries, the numbers are blended approximations suitable for price localization, not for official filings.
+
+---
+
+### How often are FX rates updated?
+
+FX rates are fetched periodically (e.g. daily) from a public FX provider and cached.  
+Use [GET /v1/meta/fx](../endpoints/meta-fx.mdx) to see the latest `asOf` timestamp.
+
+---
+
+### Can I use this to file taxes?
+
+No. You should use a certified tax provider and/or professional for any filing or legal obligations.  
+This API is only meant to produce **reasonable localized prices** for global customers.
+
+---
+
+### Can I call the API directly without RapidAPI?
+
+Yes, if you are given a direct endpoint and key by the maintainer (for private or high-volume integrations).  
+For most users, the recommended path is via RapidAPI.
+
+---
+
+### I need another country added. What do I do?
+
+Open an issue or contact the maintainer with:
+
+- Desired country  
+- Main product categories  
+- Expected volume / use case  
+
+The tax profile can then be prioritized and added in a future rules version.

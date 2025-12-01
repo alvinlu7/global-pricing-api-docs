@@ -1,0 +1,86 @@
+{
+  "$schema": "https://docs.page/schema.json",
+  "name": "Global Pricing & Tax Estimator API",
+  "description": "Estimate localized prices with FX, VAT/GST/Sales Tax heuristics, and psychological pricing.",
+  "social": {
+    "github": "your-username/global-pricing-api-docs"
+  },
+  "sidebar": [
+    {
+      "group": "Overview",
+      "pages": [
+        {
+          "title": "Introduction",
+          "href": "/"
+        },
+        {
+          "title": "Getting Started",
+          "href": "/getting-started"
+        },
+        {
+          "title": "Authentication",
+          "href": "/auth"
+        }
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        {
+          "title": "POST /v1/price/estimate",
+          "href": "/endpoints/price-estimate"
+        },
+        {
+          "title": "POST /v1/price/batch-estimate",
+          "href": "/endpoints/price-batch-estimate"
+        },
+        {
+          "title": "GET /v1/meta/fx",
+          "href": "/endpoints/meta-fx"
+        },
+        {
+          "title": "GET /v1/meta/supported",
+          "href": "/endpoints/meta-supported"
+        }
+      ]
+    },
+    {
+      "group": "Concepts",
+      "pages": [
+        {
+          "title": "Tax Profiles",
+          "href": "/concepts/tax-profiles"
+        },
+        {
+          "title": "FX System",
+          "href": "/concepts/fx"
+        },
+        {
+          "title": "Pricing Logic",
+          "href": "/concepts/pricing-logic"
+        }
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        {
+          "title": "Errors & Rate Limits",
+          "href": "/guides/errors"
+        },
+        {
+          "title": "Best Practices",
+          "href": "/guides/best-practices"
+        },
+        {
+          "title": "FAQ",
+          "href": "/guides/faq"
+        },
+        {
+          "title": "Changelog",
+          "href": "/guides/changelog"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+---
+title: Best Practices
+---
+
+# Best Practices
+
+A few practical guidelines for using the Global Pricing & Tax Estimator API effectively.
+
+---
+
+## Cache Strategically
+
+- Cache responses per `(destinationCountry, productCategory, baseCurrency)` whenever possible.
+- For static price tables, refreshing once per day is often enough.
+- Use [GET /v1/meta/fx](../endpoints/meta-fx.mdx) to decide when to invalidate FX-sensitive caches.
+
+---
+
+## Use `displayPrice` for UI
+
+The engine already applies rounding and pricing strategies. Prefer:
+
+- `displayPrice` for user-facing prices.
+- `grossPrice` for internal calculations or comparisons.
+
+---
+
+## Distinguish “Beta” Markets
+
+For countries with `supportLevel: "beta"`:
+
+- Consider adding a small “≈ estimated” tag in your UI.
+- Avoid making legal or tax commitments based purely on these values.
+- Treat them as guidance for pricing and UX, not compliance.
+
+---
+
+## Log `rulesVersion` and `fxAsOf`
+
+From the `meta` object:
+
+- `rulesVersion` – which tax rule snapshot was used.
+- `fxAsOf` – timestamp of the FX snapshot (if included by the implementation).
+
+Logging these per request can be invaluable when debugging pricing anomalies later.
+
+---
+
+## Fail Gracefully
+
+If:
+
+- FX is unavailable, or  
+- A country is unsupported  
+
+…your app should:
+
+- Either show base currency prices, or  
+- Clearly surface that the localized price is temporarily unavailable.
+
+Do not block the entire purchase experience because the estimator is unavailable.
